@@ -1,0 +1,468 @@
+# Base de Conhecimento - Protocolos de Triagem de Alergias
+# Ficheiro para uso no Projecto Parte 1
+# Fonte: Adaptado das regras de triagem do ficheiro base_conhecimento.pl
+# ============================================================
+
+## PROTOCOLO: ASMA
+
+### Sintomas de EMERGÊNCIA (Acionar 112 - INEM)
+- Lábios com coloração azulada (cianose)
+- Unhas com coloração azulada (cianose)
+- Incapacidade de falar (falência respiratória iminente)
+- Dificuldade em respirar intensa
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Dificuldade em respirar moderada
+- Falta de ar
+- Pieira
+- Tosse persistente
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Tosse persistente (ao longo do dia)
+- Tosse persistente (noturna)
+- Uso frequente de inalador (nos últimos dias)
+
+### AUTO-CUIDADOS (Autocuidados em casa)
+- Capacidade de falar normal
+- Tosse ligeira (suportável)
+- Comichão na garganta
+
+---
+
+## PROTOCOLO: ASPERGILOSE BRONCOPULMONAR ALÉRGICA (ABPA)
+
+### Sintomas de EMERGÊNCIA (Acionar 112 ou ida imediata à Urgência)
+- Falta de ar (em repouso absoluto)
+- Lábios com coloração azulada (cianose)
+- Unhas com coloração azulada (cianose)
+- Dor torácica (aguda ao respirar)
+- Tosse (com presença de sangue - hemoptise)
+- Sensação severa de peito pesado (em ambientes húmidos)
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Febre persistente (que não cede)
+- Presença de muco (cor castanha)
+- Cansaço extremo (fora do normal)
+- Pieira persistente (mesmo após uso de inalador de SOS)
+- Sensação moderada de peito pesado (em ambientes húmidos)
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Tosse persistente
+- Aumento substancial de expetoração
+- Sensação ligeira de peito pesado (em ambientes húmidos)
+
+### AUTO-CUIDADOS (Autocuidados e Manutenção em casa)
+- Clinicamente estável
+- Exposição regular a pós orgânicos (fenos ou aves)
+
+---
+
+## PROTOCOLO: ALERGIA A ANIMAIS DE ESTIMAÇÃO (Cães, Gatos, Coelhos, etc.)
+
+### Sintomas de EMERGÊNCIA (Acionar 112 - INEM imediatamente)
+- Dificuldade respiratória intensa
+- Dificuldade em engolir saliva
+- Inchaço rápido da garganta
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Chiar no peito (após contacto com animal)
+- Urticária generalizada
+- Inchaço acentuado e rápido dos olhos (após contacto com pelo ou saliva)
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Pele com manchas secas ou ásperas (nas zonas de contacto)
+- Dor facial ou dor na face
+
+### AUTO-CUIDADOS (Autocuidados com vigilância apertada)
+- Espirros frequentes
+- Pingo transparente no nariz (ligeiro)
+- Comichão na cara
+- Comichão na garganta
+
+---
+
+## PROTOCOLO: ANAFILAXIA (Emergência Máxima)
+
+### Sintomas de EMERGÊNCIA (Acionar 112 ou ida imediata à Urgência)
+- Sensação de sufoco iminente (asfixia)
+- Língua inchada (bloqueia passagem de ar)
+- Voz rouca (súbita)
+- Pele azulada
+- Pele acinzentada
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Vómitos repetidos (incontroláveis)
+- Sensação de peito esmagado (muita pressão)
+- Batimento cardíaco acelerado (descontrolado)
+- Comichão súbita e intensa (palmas das mãos)
+- Comichão intensa (plantas dos pés)
+- Formigueiro nos lábios
+- Formigueiro na boca
+- Ansiedade forte (após contacto alérgico)
+- Pânico forte (após contacto alérgico)
+
+---
+
+## PROTOCOLO: ALERGIA ALIMENTAR
+
+### Sintomas de EMERGÊNCIA (Acionar 112 imediatamente)
+- Dificuldade em respirar
+- Chiar no peito
+- Palidez cutânea súbita (muito pálida)
+- Batimento cardíaco rápido
+- Perda de sentidos (desmaio)
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Cólicas intestinais intensas
+- Vómitos seguidos (intensos)
+- Diarreia persistente
+- Chiar no peito (sem grande esforço respiratório)
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Sintomas regulares (após ingestão do alimento suspeito)
+
+### AUTO-CUIDADOS (Autocuidados com vigilância apertada)
+- Marcas leves na pele (ao redor da boca)
+- Formigueiro nos lábios
+- Formigueiro no céu da boca
+- Comichão nos lábios
+- Comichão no céu da boca
+- Comichão na garganta
+- Crises de espirros (após comer)
+- Olhos a chorar (após comer)
+- Nariz a pingar (após comer)
+
+---
+
+## PROTOCOLO: ALERGIA A PICADAS DE INSETOS
+
+### EMERGÊNCIA
+- Urticária (espalhada pelo corpo)
+- Inchaço severo dos lábios
+- Inchaço da língua
+- Inchaço rápido da garganta
+- Dificuldade em respirar
+- Dificuldade em engolir
+- Tonturas ligeiras
+- Fraqueza
+- Batimento cardíaco fraco
+- Batimento cardíaco estranho
+- Cólicas intestinais súbitas
+
+### URGENTE
+- Inchaço massivo no local da picada (a espalhar-se pelo membro)
+- Múltiplas picadas simultâneas
+- Dor aguda intensa (no local da picada)
+
+### CONSULTA
+- Piora do local da picada (após 24 horas)
+- Vermelhidão no local da picada (após 24 horas)
+- Inchaço no local da picada (após 24 horas)
+- Picada com presença de pus
+- Calor no local da picada (ao toque)
+- Histórico de reações graves a picadas
+
+### AUTO-CUIDADO
+- Dor aguda ligeira (no local da picada)
+- Inchaço local contido (em redor da picada)
+- Comichão contida (na área da picada)
+
+---
+
+## PROTOCOLO: ALERGIA AO LÁTEX
+
+### Sintomas de EMERGÊNCIA (Acionar 112 - INEM)
+- Dificuldade respiratória óbvia
+- Inchaço da língua
+- Inchaço da garganta
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Urticária (espalhada pelo corpo)
+- Sintomas de asma (súbitos)
+- Tosse forte e seca
+
+### Sintomas de CONSULTA (Marcação de Consulta de Imunoalergologia)
+- Reação em múltiplos locais do corpo
+- Reação em ambiente de trabalho
+
+### AUTO-CUIDADOS (Evicção de produtos com látex e vigilância)
+- Vermelhidão na zona de contacto
+- Irritação na zona de contacto
+
+---
+
+## PROTOCOLO: ALERGIA A PENICILINA (E ANTIBIÓTICOS)
+
+### Sintomas de EMERGÊNCIA (Acionar 112 imediatamente)
+- Falta de ar súbita (após toma)
+- Chiar no peito (súbito)
+- Aperto forte no peito (súbito)
+- Inchaço rápido dos lábios
+- Inchaço rápido da língua
+- Tonturas extremas
+- Desmaio
+- Urticária generalizada (súbita)
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Urticária a alastrar agressivamente
+- Febre
+- Manchas vermelhas ligeiras na pele
+- Dor nas articulações (moderada a alta)
+- Inchaço nas articulações (moderada a alta)
+- Falta de ar moderada
+
+### Sintomas de CONSULTA (Contactar Médico Prescritor ou Centro de Saúde)
+- Manchas vermelhas ligeiras na pele (clinicamente estável)
+
+### AUTO-CUIDADOS (Autocuidados with vigilância apertada)
+- Alterações cutâneas pequenas (isoladas/limitadas)
+
+---
+
+## PROTOCOLO: ALERGIA A ANTI-INFLAMATÓRIOS (AINEs)
+
+### Sintomas de EMERGÊNCIA (Acionar 112 imediatamente)
+- Falta de ar súbita
+- Chiar no peito súbito
+- Aperto forte no peito súbito
+- Inchaço da língua
+- Inchaço da garganta
+- Perda de consciência
+- Sensação de desmaio
+- Palidez extrema (branca/cinzenta)
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Inchaço rápido dos olhos (após toma)
+- Inchaço rápido das pálpebras (após toma)
+- Inchaço rápido dos lábios (após toma)
+- Urticária em expansão contínua
+- Vómitos intensos (após toma)
+- Dores de barriga fortes (após toma)
+
+### Sintomas de CONSULTA (Contactar Médico Assistente / Imunoalergologia)
+- Comichão ligeira (horas após toma)
+- Vermelhidão ligeira (horas após toma)
+
+### AUTO-CUIDADOS (Foco na prevenção primária e evicção)
+- Clinicamente estável
+
+---
+
+## PROTOCOLO: ALERGIA A ANESTÉSICOS
+
+### Sintomas de EMERGÊNCIA (Acionar 112 imediatamente)
+- Dificuldade respiratória severa
+- Sensação de "nó" na garganta (bloqueio respiratório)
+- Inchaço rápido dos lábios
+- Inchaço rápido da língua
+- Palpitações (batimento anormalmente rápido)
+- Tremores fortes (incontroláveis)
+- Convulsões
+- Espasmos musculares
+- Desorientação
+- Confusão
+- Desmaio (durante ou após procedimento)
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Dificuldade respiratória moderada
+- Manchas tipo picada (horas após anestesia)
+- Inchaço acentuado no local da injeção
+- Vómitos repetidos (após procedimento)
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Dormência persistente (após 24 horas)
+- Vermelhidão no local da picada (há vários dias)
+- Calor no local da picada (há vários dias)
+
+### AUTO-CUIDADOS (Autocuidados com vigilância apertada)
+- Inchaço pequeno (no local da anestesia)
+- Dormência prolongada (sem dor associada)
+
+---
+
+## PROTOCOLO: DERMATITE (ATÓPICA, DE CONTACTO OU SEBORREICA)
+
+### Sintomas de EMERGÊNCIA (Acionar 112 ou ida imediata à Urgência)
+- Febre alta
+- Erupção vermelha (a alastrar rapidamente)
+- Bolhas de água dolorosas (grande parte do corpo)
+- Prostração
+- Calafrios fortes
+- Comichão severa
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Presença de pus (nas feridas/pele)
+- Crostas amareladas e húmidas
+- Calor na área afetada (ao toque)
+- Dor intensa na área afetada
+- Comichão moderada
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Lesões persistentes (sem melhoria com cremes)
+- Vermelhidão persistente (dobras dos braços/pernas)
+- Pele seca e áspera (globalmente)
+
+### AUTO-CUIDADOS (Autocuidados em casa)
+- Descamação fina da pele (sem feridas inflamadas)
+- Comichão frequente (gerível)
+
+---
+
+## PROTOCOLO: URTICÁRIA
+
+### Sintomas de EMERGÊNCIA (Acionar 112 imediatamente)
+- Inchaço da língua
+- Inchaço da garganta
+- Voz abafada
+- Voz diferente do habitual
+- Dificuldade em engolir saliva
+- Dor ao engolir saliva
+- Desmaio recente
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Manchas vermelhas/empoladas (mais de metade do corpo)
+- Inchaço facial severo (altera feições)
+- Manchas na pele
+- Dores abdominais fortes
+- Febre
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Manchas em zonas expostas ao sol
+- Pele empolada à pressão (dermografismo)
+
+### AUTO-CUIDADOS (Autocuidados com vigilância apertada)
+- Manchas altas transitórias (desaparecem em < 24h)
+- Inchaço isolado (ex: num só dedo ou mão)
+- Inchaço parcial do lábio (sem dificuldade respiratória)
+- Vermelhidão ao coçar (sem complicações)
+
+---
+
+## PROTOCOLO: ANGIOEDEMA (INCHAÇO SUBCUTÂNEO)
+
+### Sintomas de EMERGÊNCIA (Acionar 112 imediatamente)
+- Inchaço da língua
+- Inchaço da garganta
+- Voz abafada
+- Voz diferente do habitual
+- Dificuldade em engolir saliva
+- Dor ao engolir saliva
+- Inchaço severo das pálpebras
+- Inchaço severo dos lábios
+- Inchaço severo das mãos
+- Inchaço severo dos pés
+- Cólicas intestinais severas
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Inchaço moderado das pálpebras
+- Inchaço moderado dos lábios
+- Inchaço moderado das mãos
+- Inchaço moderado dos pés
+- Cólicas intestinais moderadas
+
+### Sintomas de CONSULTA (Contacto com Médico Assistente ou Linha SNS 24)
+- Formigueiro (moderado a alto)
+- Inchaço ligeiro no rosto
+- Inchaço ligeiro no contorno dos olhos
+
+### AUTO-CUIDADOS (Educação e Autocuidados)
+- Historial de angioedema (sem sintomas ativos)
+
+---
+
+## PROTOCOLO: RINOSSINUSITE
+
+### Sintomas de EMERGÊNCIA (Acionar 112 ou ida imediata à Urgência Hospitalar)
+- Alterações súbitas na visão
+- Rigidez severa no pescoço
+- Inchaço severo nos olhos
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Febre alta
+- Febre persistente
+- Corrimento nasal purulento (amarelo/esverdeado)
+- Dor facial (moderada a alta)
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Congestão persistente
+- Dor facial ligeira ou dor na face ligeira
+
+### AUTO-CUIDADOS (Autocuidados em casa)
+- Nariz entupido
+- Sensação de peso na face
+- Corrimento nasal claro
+
+---
+
+## PROTOCOLO: RINITE ALÉRGICA
+
+### Sintomas de EMERGÊNCIA (Acionar 112 - INEM)
+- Dificuldade respiratória severa
+- Inchaço visível na garganta
+- Febre alta
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Dificuldade respiratória moderada
+- Dor facial (moderada a alta)
+- Febre moderada
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Perturbação do sono (por sintomas alérgicos)
+- Tosse noturna (moderada a alta)
+- Sangramento nasal frequente
+
+### AUTO-CUIDADOS (Autocuidados em casa)
+- Espirros frequentes
+- Comichão no nariz
+- Comichão nos olhos
+- Comichão na garganta
+- Corrimento nasal (pingo no nariz)
+
+---
+
+## PROTOCOLO: ALERGIA OCULAR / CONJUNTIVITE ALÉRGICA
+
+### Sintomas de EMERGÊNCIA (Acionar 112 imediatamente)
+- Olhos fechados por inchaço
+- Falta de ar
+- Perda súbita de visão
+- Visão turva súbita
+- Dor ocular profunda severa
+
+### Sintomas URGENTES (Serviço de Urgência ou Centro de Saúde em 24h)
+- Fotossensibilidade extrema
+- Dor ocular à luz
+- Presença de pus ocular (remela espessa)
+- Olhos fechados por inchaço (sem falta de ar)
+- Dor ocular profunda moderada
+
+### Sintomas de CONSULTA (Marcação de Consulta no Centro de Saúde)
+- Comichão persistente (> 48 horas)
+- Vermelhidão persistente (> 48 horas)
+
+### AUTO-CUIDADOS (Autocuidados com vigilância apertada)
+- Comichão intensa (bilateral)
+- Sensação de areias nos olhos
+- Pálpebras ligeiramente inchadas (com visão preservada)
+
+---
+
+## TABELA RESUMO DE ENCAMINHAMENTOS
+
+| Urgência | Encaminhamento | Tempo |
+|---|---|---|
+| EMERGÊNCIA | 112 / INEM ou SU imediatamente | Agora |
+| URGENTE | Serviço de Urgência | <2 horas |
+| CONSULTA | Médico de família / SNS24 | 24-48 horas |
+| AUTO-CUIDADO | Tratamento em casa + reavaliação | Monitorizar |
+
+---
+
+## NOTA SOBRE O SISTEMA SNS24
+
+O SNS24 é o serviço nacional de saúde 24h de Portugal, acessível pelo número 808 24 24 24.
+A linha SNS24 usa os protocolos de triagem clínica Altitude para encaminhar os doentes.
+A APP SNS24 permite auto-triagem de sintomas seguindo os mesmos fluxogramas.
+Os fluxogramas cobrem mais de 50 tipos de sintomas diferentes.
+O objetivo é encaminhar os doentes para o nível de cuidados adequado, evitando
+a utilização desnecessária dos serviços de urgência hospitalar.

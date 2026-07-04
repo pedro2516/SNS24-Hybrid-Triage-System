@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNS24 — Triagem Inteligente</title>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-app:       #0d1117;
+      --bg-chat:      #161b22;
+      --bg-bot:       #1c2733;
+      --bg-user:      #0d419d;
+      --bg-input:     #21262d;
+      --border:       #30363d;
+      --accent:       #58a6ff;
+      --accent-dark:  #1f6feb;
+      --text-primary: #e6edf3;
+      --text-muted:   #8b949e;
+      --green:        #3fb950;
+      --red:          #f85149;
+      --amber:        #d29922;
+      --radius:       14px;
+      --shadow:       0 4px 24px rgba(0,0,0,.4);
+    }
+
+    html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+    body {
+      background: var(--bg-app);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+    }
+
+    /* ── Header ──────────────────────────────────────────────────── */
+    header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: var(--bg-chat);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      z-index: 10;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    .header-title { font-size: 1rem; font-weight: 700; }
+    .header-sub   { font-size: .72rem; color: var(--text-muted); }
+
+    .status-dot {
+      display: flex; align-items: center; gap: 7px;
+      font-size: .78rem; color: var(--green);
+    }
+    .status-dot::before {
+      content: '';
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50%      { opacity: .4; }
+    }
+
+    /* ── Chat area ───────────────────────────────────────────────── */
+    #chat-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    #chat-area::-webkit-scrollbar { width: 6px; }
+    #chat-area::-webkit-scrollbar-track { background: transparent; }
+    #chat-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── Message row ────────────────────────────────────────────── */
+    .msg-row {
+      display: flex;
+      gap: 10px;
+      max-width: 780px;
+      width: 100%;
+      animation: fadeIn .25s ease;
+    }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+    .msg-row.bot  { align-self: flex-start; }
+    .msg-row.user { align-self: flex-end; flex-direction: row-reverse; }
+
+    .msg-avatar {
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700;
+      color: #fff;
+    }
+
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      line-height: 1.55;
+      font-size: .9rem;
+      max-width: calc(100% - 50px);
+      word-break: break-word;
+    }
+
+    .msg-row.bot  .msg-bubble {
+      background: var(--bg-bot);
+      border: 1px solid var(--border);
+      border-top-left-radius: 4px;
+    }
+    .msg-row.user .msg-bubble {
+      background: var(--bg-user);
+      border-top-right-radius: 4px;
+      max-width: fit-content;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+
+    .msg-label {
+      font-size: .7rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      padding: 0 2px;
+    }
+    .msg-row.user .msg-label { text-align: right; }
+
+    /* ── Welcome card ────────────────────────────────────────────── */
+    .welcome-card {
+      text-align: center;
+      padding: 40px 24px;
+      max-width: 560px;
+      margin: auto;
+    }
+    .welcome-card .logo-big {
+      font-size: 3rem; margin-bottom: 12px;
+    }
+    .welcome-card h1 { font-size: 1.5rem; margin-bottom: 8px; }
+    .welcome-card p  { color: var(--text-muted); font-size: .9rem; line-height: 1.6; }
+
+    #btn-start {
+      margin-top: 28px;
+      padding: 13px 36px;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+    }
+    #btn-start:hover  { opacity: .88; transform: translateY(-2px); }
+    #btn-start:active { transform: translateY(0); }
+
+    /* ── Group buttons ───────────────────────────────────────────── */
+    .group-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .btn-group {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 16px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-size: .88rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background .18s, border-color .18s;
+    }
+    .btn-group:hover { background: #2d333b; border-color: var(--accent); }
+    .btn-group .g-num {
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--accent-dark);
+      color: #fff;
+      font-size: .78rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── SN buttons ──────────────────────────────────────────────── */
+    .sn-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: nowrap;
+    }
+    .btn-sn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: .88rem; font-weight: 600;
+      cursor: pointer;
+      transition: opacity .18s, transform .12s;
+    }
+    .btn-sn:hover  { opacity: .85; transform: translateY(-1px); }
+    .btn-sn:active { transform: translateY(0); }
+    .btn-sn.sim { background: var(--green);      color: #0d1117; }
+    .btn-sn.nao { background: var(--red);        color: #fff;    }
+    .btn-sn.ns  { background: var(--bg-input);   color: var(--text-primary);
+                  border: 1px solid var(--border); }
+
+    /* ── Scale slider ─────────────────────────────────────────────── */
+    .escala-wrapper { margin-top: 10px; }
+    .escala-header  { display: flex; justify-content: space-between;
+                      font-size: .78rem; color: var(--text-muted); margin-bottom: 8px; }
+    .escala-value   { font-size: 1.6rem; font-weight: 700;
+                      color: var(--accent); text-align: center; margin: 6px 0; }
+
+    input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px;
+      background: var(--border);
+      border-radius: 3px; outline: none; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent-dark);
+      cursor: grab;
+    }
+    input[type=range]::-webkit-slider-thumb:active { cursor: grabbing; }
+
+    .btn-submit-escala {
+      margin-top: 12px;
+      padding: 10px 28px;
+      background: var(--accent-dark);
+      color: #fff;
+      border: none; border-radius: 8px;
+      font-size: .88rem; font-weight: 600;
+      cursor: pointer;
+      transition: opacity .18s;
+      display: block;
+    }
+    .btn-submit-escala:hover { opacity: .85; }
+
+    /* ── Diagnosis card ──────────────────────────────────────────── */
+    .diag-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .diag-header {
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .diag-header.urgente     { background: rgba(248,81,73,.15);  border-bottom: 2px solid var(--red); }
+    .diag-header.nao-urgente { background: rgba(210,153,34,.15); border-bottom: 2px solid var(--amber); }
+
+    .diag-icon { font-size: 1.8rem; }
+    .diag-doenca { font-size: 1.1rem; font-weight: 700; }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .badge.urgente     { background: rgba(248,81,73,.2);  color: var(--red);   border: 1px solid var(--red);   }
+    .badge.nao-urgente { background: rgba(210,153,34,.2); color: var(--amber); border: 1px solid var(--amber); }
+
+    .diag-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+
+    .diag-row { display: flex; flex-direction: column; gap: 3px; }
+    .diag-row label { font-size: .72rem; font-weight: 600;
+                      color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
+    .diag-row span  { font-size: .9rem; }
+
+    .prob-bar-bg {
+      height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 4px;
+    }
+    .prob-bar-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+      transition: width .8s ease;
+    }
+
+    /* ── Nova Triagem button ─────────────────────────────────────── */
+    .btn-nova {
+      margin-top: 14px;
+      padding: 10px 24px;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 8px;
+      font-size: .88rem; font-weight: 600;
+      cursor: pointer;
+      transition: background .18s;
+    }
+    .btn-nova:hover { background: rgba(88,166,255,.1); }
+
+    /* ── Typing indicator ────────────────────────────────────────── */
+    .typing-dots span {
+      display: inline-block; width: 7px; height: 7px;
+      border-radius: 50%; background: var(--text-muted); margin: 0 2px;
+      animation: bounce .9s infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: .15s; }
+    .typing-dots span:nth-child(3) { animation-delay: .3s; }
+    @keyframes bounce {
+      0%,80%,100% { transform: translateY(0); }
+      40%          { transform: translateY(-6px); }
+    }
+
+    /* ── Error message ───────────────────────────────────────────── */
+    .msg-erro {
+      background: rgba(248,81,73,.1);
+      border: 1px solid var(--red);
+      color: var(--red);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: .85rem;
+      margin-top: 6px;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      #chat-area { padding: 14px 10px; }
+      .welcome-card { padding: 28px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────────────────── -->
+<header>
+  <div class="header-brand">
+    <div class="header-icon">🩺</div>
+    <div>
+      <div class="header-title">SNS24 — Triagem Inteligente</div>
+      <div class="header-sub">Sistema de Apoio à Decisão Clínica</div>
+    </div>
+  </div>
+  <div class="status-dot" id="status-label">Sistema Online</div>
+</header>
+
+<!-- ── Chat area ──────────────────────────────────────────────────────────── -->
+<main id="chat-area">
+  <!-- Welcome card (shown before session starts) -->
+  <div class="welcome-card" id="welcome-card">
+    <div class="logo-big">🏥</div>
+    <h1>Bem-vindo à Triagem SNS24</h1>
+    <p>
+      Este sistema inteligente irá guiá-lo através de um conjunto de perguntas
+      clínicas para identificar a suspeita diagnóstica e a prioridade de
+      atendimento mais adequada.
+    </p>
+    <button id="btn-start" onclick="startSession()">Iniciar Triagem</button>
+  </div>
+</main>
+
+<script>
+// ── State ─────────────────────────────────────────────────────────────────────
+const API = "";          // same origin (Flask serves both)
+let sessionId = null;
+let currentState = "idle";   // idle | menu_grupos | pergunta_sn | pergunta_escala | diagnostico
+
+// ── DOM helpers ───────────────────────────────────────────────────────────────
+const chatArea = document.getElementById("chat-area");
+
+function scrollBottom() {
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function addBotMessage(contentHTML, extraClass = "") {
+  const row = document.createElement("div");
+  row.className = "msg-row bot";
+  row.innerHTML = `
+    <div class="msg-avatar">SN</div>
+    <div>
+      <div class="msg-label">SNS24</div>
+      <div class="msg-bubble ${extraClass}">${contentHTML}</div>
+    </div>`;
+  chatArea.appendChild(row);
+  scrollBottom();
+  return row;
+}
+
+function addUserMessage(text) {
+  const row = document.createElement("div");
+  row.className = "msg-row user";
+  row.innerHTML = `
+    <div>
+      <div class="msg-label">Utilizador</div>
+      <div class="msg-bubble">${escapeHtml(text)}</div>
+    </div>`;
+  chatArea.appendChild(row);
+  scrollBottom();
+}
+
+function showTyping() {
+  const row = document.createElement("div");
+  row.className = "msg-row bot";
+  row.id = "typing-row";
+  row.innerHTML = `
+    <div class="msg-avatar">SN</div>
+    <div>
+      <div class="msg-label">SNS24</div>
+      <div class="msg-bubble">
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>`;
+  chatArea.appendChild(row);
+  scrollBottom();
+}
+
+function hideTyping() {
+  const t = document.getElementById("typing-row");
+  if (t) t.remove();
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// ── Render helpers ────────────────────────────────────────────────────────────
+
+function renderGroupMenu(data) {
+  const gruposHtml = data.grupos.map(g => `
+    <button class="btn-group" onclick="sendAnswer('${g.id}', '${escapeHtml(g.nome)}')">
+      <span class="g-num">${g.id}</span>
+      <span>${escapeHtml(g.nome)}</span>
+    </button>`).join("");
+
+  addBotMessage(`
+    <p>${escapeHtml(data.texto)}</p>
+    <div class="group-grid">${gruposHtml}</div>
+  `);
+  currentState = "menu_grupos";
+}
+
+function renderQuestion(data) {
+  if (data.tipo_pergunta === "sn") {
+    const snHtml = `
+      <p>${escapeHtml(data.texto)}</p>
+      ${data.erro ? `<div class="msg-erro">${escapeHtml(data.erro)}</div>` : ""}
+      <div class="sn-buttons">
+        <button class="btn-sn sim" onclick="sendAnswer('s','Sim')">✓ Sim</button>
+        <button class="btn-sn nao" onclick="sendAnswer('n','Não')">✗ Não</button>
+        <button class="btn-sn ns"  onclick="sendAnswer('ns','Não sei')">? Não sei</button>
+      </div>`;
+    addBotMessage(snHtml);
+    currentState = "pergunta_sn";
+
+  } else {  // escala
+    const escalaHtml = `
+      <p>${escapeHtml(data.texto)}</p>
+      ${data.erro ? `<div class="msg-erro">${escapeHtml(data.erro)}</div>` : ""}
+      <div class="escala-wrapper">
+        <div class="escala-header">
+          <span>0 — Não sinto nada</span>
+          <span>10 — Máximo possível</span>
+        </div>
+        <div class="escala-value" id="escala-display">5</div>
+        <input type="range" id="escala-slider" min="0" max="10" value="5"
+               oninput="document.getElementById('escala-display').textContent = this.value">
+        <button class="btn-submit-escala" onclick="submitEscala()">Confirmar →</button>
+      </div>`;
+    addBotMessage(escalaHtml);
+    currentState = "pergunta_escala";
+  }
+}
+
+function renderDiagnosis(data) {
+  const isUrgente = data.prioridade === "Urgente";
+  const icon      = isUrgente ? "🚨" : "🟡";
+  const cls       = isUrgente ? "urgente" : "nao-urgente";
+  const badgeText = isUrgente ? "URGENTE" : "NÃO URGENTE";
+  const pct       = Math.min(100, Math.max(0, data.probabilidade));
+
+  const html = `
+    <div class="diag-card">
+      <div class="diag-header ${cls}">
+        <span class="diag-icon">${icon}</span>
+        <div>
+          <div class="diag-doenca">${escapeHtml(data.doenca)}</div>
+          <span class="badge ${cls}">${badgeText}</span>
+        </div>
+      </div>
+      <div class="diag-body">
+        <div class="diag-row">
+          <label>Ação Recomendada</label>
+          <span>${escapeHtml(data.acao)}</span>
+        </div>
+        <div class="diag-row">
+          <label>Justificação</label>
+          <span>${escapeHtml(data.explicacao)}</span>
+        </div>
+        <div class="diag-row">
+          <label>Confiança no Diagnóstico — ${pct}%</label>
+          <div class="prob-bar-bg">
+            <div class="prob-bar-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-nova" onclick="resetSession()">+ Nova Triagem</button>`;
+
+  addBotMessage(html);
+  currentState = "diagnostico";
+}
+
+function renderError(msg) {
+  addBotMessage(`<div class="msg-erro">⚠️ ${escapeHtml(msg)}</div>`);
+}
+
+// ── API calls ─────────────────────────────────────────────────────────────────
+
+async function startSession() {
+  document.getElementById("welcome-card").remove();
+  showTyping();
+
+  try {
+    const res  = await fetch(`${API}/api/start`, { method: "POST",
+      headers: { "Content-Type": "application/json" }, body: "{}" });
+    const data = await res.json();
+    hideTyping();
+    sessionId = data.session_id;
+    handleResponse(data);
+  } catch (err) {
+    hideTyping();
+    renderError("Não foi possível contactar o servidor. Verifique se o backend está em execução.");
+  }
+}
+
+async function sendAnswer(value, displayText) {
+  if (!sessionId) return;
+
+  // Disable all interactive elements in the last bot message
+  disableLastButtons();
+  addUserMessage(displayText);
+  showTyping();
+
+  try {
+    const res  = await fetch(`${API}/api/chat`, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ session_id: sessionId, resposta: String(value) }),
+    });
+    const data = await res.json();
+    hideTyping();
+    handleResponse(data);
+  } catch (err) {
+    hideTyping();
+    renderError("Erro de comunicação com o servidor.");
+  }
+}
+
+function submitEscala() {
+  const slider = document.getElementById("escala-slider");
+  if (!slider) return;
+  const val = slider.value;
+  sendAnswer(val, `Intensidade: ${val}/10`);
+}
+
+function handleResponse(data) {
+  switch (data.tipo) {
+    case "menu_grupos":  renderGroupMenu(data);  break;
+    case "pergunta":     renderQuestion(data);   break;
+    case "diagnostico":  renderDiagnosis(data);  break;
+    case "erro":         renderError(data.mensagem || "Erro desconhecido."); break;
+    default:             renderError(`Resposta inesperada do servidor: ${data.tipo}`);
+  }
+}
+
+function disableLastButtons() {
+  const rows = chatArea.querySelectorAll(".msg-row.bot");
+  if (!rows.length) return;
+  const last = rows[rows.length - 1];
+  last.querySelectorAll("button").forEach(b => {
+    b.disabled = true;
+    b.style.opacity = ".45";
+    b.style.cursor = "default";
+  });
+  const slider = last.querySelector("input[type=range]");
+  if (slider) slider.disabled = true;
+}
+
+async function resetSession() {
+  // 1. Notify the backend to clean up Prolog facts and the session
+  if (sessionId) {
+    try {
+      await fetch(`${API}/api/reset`, {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ session_id: sessionId }),
+      });
+    } catch (_) { /* ignore — client resets regardless */ }
+  }
+
+  // 2. Reset client state
+  sessionId    = null;
+  currentState = "idle";
+
+  // 3. Clear chat history and restore the welcome screen
+  chatArea.innerHTML = `
+    <div class="welcome-card" id="welcome-card">
+      <div class="logo-big">&#x1F3E5;</div>
+      <h1>Bem-vindo &#xE0; Triagem SNS24</h1>
+      <p>
+        Este sistema inteligente ir&#xE1; gui&#xE1;-lo atrav&#xE9;s de um conjunto de perguntas
+        cl&#xED;nicas para identificar a suspeita diagn&#xF3;stica e a prioridade de
+        atendimento mais adequada.
+      </p>
+      <button id="btn-start" onclick="startSession()">Iniciar Triagem</button>
+    </div>`;
+}
+</script>
+</body>
+</html>

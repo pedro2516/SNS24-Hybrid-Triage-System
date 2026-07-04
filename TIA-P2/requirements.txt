@@ -1,0 +1,12 @@
+# Servidor Web
+flask>=3.0.0
+flask-cors
+waitress>=3.0.0
+
+# Motor de Inteligência Artificial e RAG
+langchain
+langchain-community
+chromadb
+ollama
+langchain-chroma
+langchain-ollama

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triagem SNS24</title>
+    <style>
+        :root {
+            --primary-red: #d32f2f;
+            --light-gray: #f4f6f8;
+            --text-dark: #202124;
+            --text-muted: #5f6368;
+            --bot-icon-bg: #fbbc04;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 3rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 760px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #202124;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        h1 .link-icon {
+            color: #9aa0a6;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .message {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+        }
+
+        .message.user-message {
+            background-color: var(--light-gray);
+        }
+
+        .message.bot-message {
+            background-color: #ffffff;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .icon-container {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .user-icon {
+            background-color: var(--primary-red);
+        }
+
+        .bot-icon {
+            background-color: var(--bot-icon-bg);
+        }
+
+        .content {
+            flex-grow: 1;
+            font-size: 1.05rem;
+            color: #3c4043;
+            padding-top: 4px;
+        }
+
+        .content p {
+            margin-bottom: 1.2rem;
+        }
+
+        .content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            color: #5f6368;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Highlight specific labels */
+        .encaminhamento {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .chat-history {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 80px;
+        }
+
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: center;
+        }
+
+        .input-container {
+            width: 100%;
+            max-width: 760px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-container input {
+            flex-grow: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-container input:focus {
+            border-color: var(--primary-red);
+        }
+
+        .send-btn {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 0 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            opacity: 0.9;
+        }
+
+        .send-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .clear-btn {
+            background-color: var(--light-gray);
+            color: var(--text-dark);
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+            padding: 0;
+        }
+
+        .clear-btn:hover {
+            background-color: #e0e0e0;
+            border-color: #ccc;
+        }
+
+        .loading {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-top-color: var(--primary-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .welcome-message {
+            text-align: center;
+            margin-top: 15vh;
+            color: var(--text-muted);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .welcome-message h2 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .welcome-message p {
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chat-container">
+        <h1>Triagem SNS24 <a href="#" class="link-icon">🔗</a></h1>
+
+        <div class="welcome-message" id="welcome-message">
+            <h2>Bem-vindo à Triagem Clínica</h2>
+            <p>Descreva os seus sintomas detalhadamente na caixa abaixo. O nosso assistente irá avaliar a sua situação e sugerir o encaminhamento adequado com base nos protocolos do SNS24.</p>
+        </div>
+
+        <div class="chat-history" id="chat-history">
+            <!-- Messages will be injected here -->
+        </div>
+
+        <div class="loading" id="loading-indicator">
+            <div class="spinner"></div> A analisar os Sintomas e os Protocolos Clínicos...
+        </div>
+    </div>
+
+    <div class="input-area">
+        <div class="input-container">
+            <button class="clear-btn" id="clear-btn" title="Limpar histórico">🧹</button>
+            <input type="text" id="user-input" placeholder="Descreva os Sintomas (ex: dor no peito)..."
+                autocomplete="off">
+            <button class="send-btn" id="send-btn">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        function addUserMessage(text) {
+            document.getElementById('welcome-message').style.display = 'none';
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message user-message';
+            msgDiv.innerHTML = `
+            <div class="icon-container user-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <div class="content"><p>${text}</p></div>
+        `;
+            chatHistory.appendChild(msgDiv);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function parseBotResponse(rawText) {
+            // Simple parser to make it look like the required card
+            const lines = rawText.split('\n');
+            let htmlContent = '';
+
+            // If it's a raw generic text (like limpo, debug)
+            if (!rawText.includes('Avaliação de Sintomas:') && !rawText.includes('Encaminhamento:')) {
+                return `<p>${rawText.replace(/\n/g, '<br>')}</p>`;
+            }
+
+            const keywords = ['Raciocínio:', 'Protocolo Principal:', 'Avaliação de Sintomas:', 'Encaminhamento:', 'Porquê:', 'O que fazer agora:', 'Sinais de Alerta:'];
+
+            let currentLabel = '';
+            let currentValue = '';
+
+            lines.forEach(line => {
+                let matched = false;
+                for (let kw of keywords) {
+                    if (line.startsWith(kw)) {
+                        // Flush previous
+                        if (currentLabel && currentLabel !== 'Raciocínio:') {
+                            htmlContent += `<p><span class="label">${currentLabel.toUpperCase()}</span> ${currentLabel === 'Encaminhamento:' ? '<span class="encaminhamento">' + currentValue + '</span>' : currentValue}</p>`;
+                        }
+                        currentLabel = kw;
+                        currentValue = line.substring(kw.length).trim();
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched && currentLabel && line.trim() !== '') {
+                    currentValue += ' ' + line.trim();
+                }
+            });
+
+            // Flush last
+            if (currentLabel && currentLabel !== 'Raciocínio:') {
+                htmlContent += `<p><span class="label">${currentLabel.toUpperCase()}</span> ${currentLabel === 'Encaminhamento:' ? '<span class="encaminhamento">' + currentValue + '</span>' : currentValue}</p>`;
+            }
+
+            return htmlContent;
+        }
+
+        function addBotMessage(rawText) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message bot-message';
+            msgDiv.innerHTML = `
+            <div class="icon-container bot-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                    <circle cx="12" cy="5" r="2"></circle>
+                    <path d="M12 7v4"></path>
+                    <line x1="8" y1="16" x2="8" y2="16"></line>
+                    <line x1="16" y1="16" x2="16" y2="16"></line>
+                </svg>
+            </div>
+            <div class="content">${parseBotResponse(rawText)}</div>
+        `;
+            chatHistory.appendChild(msgDiv);
+            window.scrollTo(0, document.body.scrollHeight);
+            return msgDiv;
+        }
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            addUserMessage(text);
+            userInput.value = '';
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+            loadingIndicator.style.display = 'flex';
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.clear) {
+                        chatHistory.innerHTML = ''; // clear visual memory too
+                        document.getElementById('welcome-message').style.display = 'block';
+                        const clearMsg = addBotMessage(data.raw_response);
+                        setTimeout(() => {
+                            if (clearMsg.parentNode) {
+                                clearMsg.remove();
+                            }
+                        }, 2000);
+                    } else {
+                        addBotMessage(data.raw_response);
+                    }
+                } else {
+                    addBotMessage('Ocorreu um erro ao comunicar com o servidor: ' + (data.error || 'Erro desconhecido.'));
+                }
+
+            } catch (error) {
+                addBotMessage('Erro de rede: não foi possível contactar o servidor.');
+            } finally {
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+                loadingIndicator.style.display = 'none';
+                userInput.focus();
+            }
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+
+        clearBtn.addEventListener('click', () => {
+            userInput.value = 'limpar';
+            sendMessage();
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+
+</html>

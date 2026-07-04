@@ -1,0 +1,4 @@
+# SNS24 Triage System — Python dependencies
+flask>=3.0.0
+pyswip>=0.3.0
+waitress>=3.0.0
