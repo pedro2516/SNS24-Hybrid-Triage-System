@@ -19,7 +19,8 @@ O sistema foi desenhado e implementado em duas fases evolutivas:
 - Afonso Martim Carvalho Leite [@afonsooleite](https://github.com/afonsooleite)
 - Pedro Manuel Mendes Neves [@pedro2516](https://github.com/pedro2516)
 - Filipa Mendes de Castro Pinto [@filipamcp](https://github.com/filipamcp)
-
+- Rodrigo Santiago Faria Fonseca Abreu [@rodrigoo-abreu](https://github.com/rodrigoo-abreu)
+  
 ## Arquitetura
 
 ### Parte 1: Inferência Simbólica e ML (Prolog + Weka)
