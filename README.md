@@ -1,6 +1,6 @@
 # Sistema de Triagem SNS24
 
-Trabalho prático desenvolvido para a unidade curricular de **Técnicas de Inteligência Artificial**.
+Trabalho prático desenvolvido para a unidade curricular de **Técnicas de Inteligência Artificial (TIA)**.
 
 _Nota: Este repositório é uma cópia para fins de portfólio pessoal._
 
